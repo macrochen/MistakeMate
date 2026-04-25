@@ -9,5 +9,9 @@
 	</dict>
 	<key>UILaunchScreen</key>
 	<dict/>
+	<key>NSCameraUsageDescription</key>
+	<string>用于拍摄错题照片并交给 AI 识别分析。</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>用于从相册选择错题截图或照片。</string>
 </dict>
 </plist>
