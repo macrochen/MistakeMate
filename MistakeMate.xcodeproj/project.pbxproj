@@ -28,13 +28,15 @@
 		100000000000000000000015 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000015 /* ImagePicker.swift */; };
 		100000000000000000000016 /* MistakeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000016 /* MistakeInputView.swift */; };
 		100000000000000000000017 /* MistakeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000017 /* MistakeDetailView.swift */; };
-		100000000000000000000018 /* APIKeySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000018 /* APIKeySettingsView.swift */; };
 		100000000000000000000019 /* MarkdownWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000019 /* MarkdownWebView.swift */; };
 		100000000000000000000020 /* markdown-template.html in Resources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000020 /* markdown-template.html */; };
 		100000000000000000000021 /* ChatDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000021 /* ChatDetailView.swift */; };
 		100000000000000000000022 /* PromptLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000022 /* PromptLibraryView.swift */; };
 		100000000000000000000023 /* StudyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000023 /* StudyProfileView.swift */; };
 		100000000000000000000024 /* SubjectManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000024 /* SubjectManageView.swift */; };
+		100000000000000000000025 /* CustomAIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000025 /* CustomAIProvider.swift */; };
+		100000000000000000000026 /* AIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000026 /* AIService.swift */; };
+		100000000000000000000027 /* AIProviderSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000027 /* AIProviderSettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,13 +63,15 @@
 		200000000000000000000015 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		200000000000000000000016 /* MistakeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakeInputView.swift; sourceTree = "<group>"; };
 		200000000000000000000017 /* MistakeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakeDetailView.swift; sourceTree = "<group>"; };
-		200000000000000000000018 /* APIKeySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeySettingsView.swift; sourceTree = "<group>"; };
 		200000000000000000000019 /* MarkdownWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownWebView.swift; sourceTree = "<group>"; };
 		200000000000000000000020 /* markdown-template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "markdown-template.html"; sourceTree = "<group>"; };
 		200000000000000000000021 /* ChatDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailView.swift; sourceTree = "<group>"; };
 		200000000000000000000022 /* PromptLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptLibraryView.swift; sourceTree = "<group>"; };
 		200000000000000000000023 /* StudyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyProfileView.swift; sourceTree = "<group>"; };
 		200000000000000000000024 /* SubjectManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectManageView.swift; sourceTree = "<group>"; };
+		200000000000000000000025 /* CustomAIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAIProvider.swift; sourceTree = "<group>"; };
+		200000000000000000000026 /* AIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIService.swift; sourceTree = "<group>"; };
+		200000000000000000000027 /* AIProviderSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIProviderSettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,7 @@
 				200000000000000000000009 /* PracticeSet.swift */,
 				20000000000000000000000A /* PracticeItem.swift */,
 				20000000000000000000000B /* DataSeeder.swift */,
+				200000000000000000000025 /* CustomAIProvider.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -126,16 +131,6 @@
 				20000000000000000000000C /* Color+Hex.swift */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		40000000000000000000000A /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				200000000000000000000012 /* KeychainService.swift */,
-				200000000000000000000013 /* ImageProcessor.swift */,
-				200000000000000000000014 /* GeminiService.swift */,
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		400000000000000000000005 /* Views */ = {
@@ -173,11 +168,30 @@
 			isa = PBXGroup;
 			children = (
 				20000000000000000000000F /* SettingsView.swift */,
-				200000000000000000000018 /* APIKeySettingsView.swift */,
+				200000000000000000000027 /* AIProviderSettingsView.swift */,
 				200000000000000000000023 /* StudyProfileView.swift */,
 				200000000000000000000024 /* SubjectManageView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		400000000000000000000009 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000011 /* MistakeMate.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		40000000000000000000000A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000012 /* KeychainService.swift */,
+				200000000000000000000013 /* ImageProcessor.swift */,
+				200000000000000000000014 /* GeminiService.swift */,
+				200000000000000000000026 /* AIService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		40000000000000000000000B /* Components */ = {
@@ -195,14 +209,6 @@
 				200000000000000000000020 /* markdown-template.html */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		400000000000000000000009 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				200000000000000000000011 /* MistakeMate.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,14 +301,16 @@
 				100000000000000000000015 /* ImagePicker.swift in Sources */,
 				100000000000000000000016 /* MistakeInputView.swift in Sources */,
 				100000000000000000000017 /* MistakeDetailView.swift in Sources */,
-			100000000000000000000018 /* APIKeySettingsView.swift in Sources */,
-			100000000000000000000019 /* MarkdownWebView.swift in Sources */,
-			100000000000000000000021 /* ChatDetailView.swift in Sources */,
-			100000000000000000000022 /* PromptLibraryView.swift in Sources */,
-			100000000000000000000023 /* StudyProfileView.swift in Sources */,
-			100000000000000000000024 /* SubjectManageView.swift in Sources */,
-		);
-		runOnlyForDeploymentPostprocessing = 0;
+				100000000000000000000019 /* MarkdownWebView.swift in Sources */,
+				100000000000000000000021 /* ChatDetailView.swift in Sources */,
+				100000000000000000000022 /* PromptLibraryView.swift in Sources */,
+				100000000000000000000023 /* StudyProfileView.swift in Sources */,
+				100000000000000000000024 /* SubjectManageView.swift in Sources */,
+				100000000000000000000025 /* CustomAIProvider.swift in Sources */,
+				100000000000000000000026 /* AIService.swift in Sources */,
+				100000000000000000000027 /* AIProviderSettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -429,7 +437,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9HGR5HKLNN;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MistakeMate/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MistakeMate;
@@ -440,7 +448,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.local.MistakeMate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macrochen.MistakeMate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -456,7 +464,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9HGR5HKLNN;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MistakeMate/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MistakeMate;
@@ -467,7 +475,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.local.MistakeMate;
+				PRODUCT_BUNDLE_IDENTIFIER = com.macrochen.MistakeMate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;

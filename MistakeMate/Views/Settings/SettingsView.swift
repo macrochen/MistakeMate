@@ -31,8 +31,8 @@ struct SettingsView: View {
                 }
 
                 Section("AI") {
-                    NavigationLink("Gemini API Key") {
-                        APIKeySettingsView()
+                    NavigationLink("AI 提供商") {
+                        AIProviderSettingsView()
                     }
                 }
 

@@ -7,6 +7,7 @@ struct ChatDetailView: View {
     let session: ChatSession
 
     @Query private var messages: [ChatMessage]
+    @Query private var providers: [CustomAIProvider]
     @State private var inputText = ""
     @State private var selectedImage: UIImage?
     @State private var isSending = false
@@ -14,6 +15,7 @@ struct ChatDetailView: View {
     @State private var showPhotoPicker = false
     @State private var showImagePreview = false
     @State private var showPromptLibrary = false
+    @AppStorage("selectedAIProviderKey") private var selectedAIProviderKey = ""
 
     @FocusState private var isFieldFocused: Bool
 
@@ -41,6 +43,10 @@ struct ChatDetailView: View {
         .navigationTitle(session.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                providerMenu
+            }
+
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     showPromptLibrary.toggle()
@@ -66,6 +72,9 @@ struct ChatDetailView: View {
         }
         .onAppear {
             scrollToLatest = true
+            if selectedAIProviderKey.isEmpty, let provider = activeProvider {
+                selectedAIProviderKey = provider.selectionKey
+            }
         }
     }
 
@@ -84,7 +93,7 @@ struct ChatDetailView: View {
                         .padding(.top, 80)
                     }
 
-                    ForEach(messages) { message in
+                    ForEach(displayedMessages) { message in
                         ChatBubble(message: message)
                             .id(message.id)
                     }
@@ -176,9 +185,45 @@ struct ChatDetailView: View {
         .background(.regularMaterial)
     }
 
+    private var providerMenu: some View {
+        Menu {
+            if providers.isEmpty {
+                Text("未配置提供商")
+            } else {
+                ForEach(providers) { provider in
+                    Button {
+                        selectedAIProviderKey = provider.selectionKey
+                    } label: {
+                        if activeProvider?.selectionKey == provider.selectionKey {
+                            Label(provider.name, systemImage: "checkmark")
+                        } else {
+                            Text(provider.name)
+                        }
+                    }
+                }
+            }
+        } label: {
+            Label(activeProvider?.name ?? "AI", systemImage: "cpu")
+        }
+    }
+
+    private var activeProvider: CustomAIProvider? {
+        providers.first { $0.selectionKey == selectedAIProviderKey }
+            ?? providers.first(where: \.isDefault)
+            ?? providers.first
+    }
+
+    private var displayedMessages: [ChatMessage] {
+        messages.filter { !$0.isEmptyAssistantMessage }
+    }
+
     private func sendMessage() {
         let text = inputText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !text.isEmpty || selectedImage != nil else { return }
+
+        let historySnapshot = messages.filter { !$0.isEmptyAssistantMessage }.map { msg in
+            ChatHistorySnapshot(role: msg.role, content: msg.content, imageData: msg.imageData, audioData: msg.audioData)
+        }
 
         var imageData: Data?
         if let img = selectedImage {
@@ -198,24 +243,34 @@ struct ChatDetailView: View {
         isSending = true
         errorMessage = nil
 
-        let historySnapshot = messages.map { msg in
-            ChatHistorySnapshot(role: msg.role, content: msg.content, imageData: msg.imageData, audioData: msg.audioData)
-        }
-
         try? modelContext.save()
 
         Task {
             do {
-                let reply = try await GeminiService.shared.chat(
+                let provider = activeProvider
+                guard let provider else {
+                    await MainActor.run {
+                        errorMessage = "请先在设置中配置 AI 提供商"
+                        isSending = false
+                    }
+                    return
+                }
+                let reply = try await AIService.shared.chat(
                     message: text,
-                    history: historySnapshot + [ChatHistorySnapshot(role: "user", content: text, imageData: imageData, audioData: nil)],
-                    imageData: imageData
+                    history: historySnapshot,
+                    imageData: imageData,
+                    baseURL: provider.baseURL,
+                    model: provider.model,
+                    keychainKey: provider.keychainKey
                 )
+
+                let cleanedReply = reply.trimmingCharacters(in: .whitespacesAndNewlines)
+                print("AI chat reply provider=\(provider.name) model=\(provider.model) length=\(cleanedReply.count)")
 
                 await MainActor.run {
                     let assistantMsg = ChatMessage(
                         role: "assistant",
-                        content: reply,
+                        content: cleanedReply,
                         session: session
                     )
                     modelContext.insert(assistantMsg)
@@ -241,8 +296,13 @@ struct ChatDetailView: View {
     private func generateTitle(firstUserMessage: String) {
         Task {
             do {
-                let title = try await GeminiService.shared.generateContent(
-                    prompt: "用10个字以内概括这段对话的主题，只返回标题本身：\(firstUserMessage)"
+                let provider = activeProvider
+                guard let provider else { return }
+                let title = try await AIService.shared.generateContent(
+                    prompt: "用10个字以内概括这段对话的主题，只返回标题本身：\(firstUserMessage)",
+                    baseURL: provider.baseURL,
+                    model: provider.model,
+                    keychainKey: provider.keychainKey
                 )
                 await MainActor.run {
                     let cleaned = title.trimmingCharacters(in: .whitespacesAndNewlines.union(.punctuationCharacters))
@@ -265,9 +325,7 @@ private struct ChatBubble: View {
         HStack(alignment: .top) {
             if message.role == "assistant" {
                 VStack(alignment: .leading, spacing: 4) {
-                    MarkdownWebView(markdown: message.content)
-                        .frame(minHeight: 20)
-                        .fixedSize(horizontal: false, vertical: true)
+                    AssistantMessageText(content: message.content)
                 }
                 .padding(12)
                 .background(Color(.systemGray5))
@@ -311,6 +369,22 @@ private struct ChatBubble: View {
     }
 }
 
+private struct AssistantMessageText: View {
+    let content: String
+
+    var body: some View {
+        if let attributed = try? AttributedString(markdown: content) {
+            Text(attributed)
+                .textSelection(.enabled)
+                .fixedSize(horizontal: false, vertical: true)
+        } else {
+            Text(content)
+                .textSelection(.enabled)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+}
+
 private struct ChatLoadingBubble: View {
     var body: some View {
         HStack(spacing: 4) {
@@ -323,5 +397,11 @@ private struct ChatLoadingBubble: View {
         .background(Color(.systemGray5))
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .padding(.leading, 12)
+    }
+}
+
+private extension ChatMessage {
+    var isEmptyAssistantMessage: Bool {
+        role == "assistant" && content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

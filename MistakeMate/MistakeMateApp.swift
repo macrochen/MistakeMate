@@ -15,7 +15,8 @@ struct MistakeMateApp: App {
             AppSettings.self,
             ChatSession.self,
             ChatMessage.self,
-            PromptTemplate.self
+            PromptTemplate.self,
+            CustomAIProvider.self
         ]) { result in
             if case .success(let container) = result {
                 DataSeeder.seedIfNeeded(context: container.mainContext)

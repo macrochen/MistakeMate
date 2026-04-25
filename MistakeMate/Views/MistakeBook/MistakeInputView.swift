@@ -7,6 +7,7 @@ struct MistakeInputView: View {
 
     @Query(sort: \Subject.sortOrder) private var subjects: [Subject]
     @Query private var settings: [AppSettings]
+    @Query private var providers: [CustomAIProvider]
 
     @State private var selectedSubject: Subject?
     @State private var source = ""
@@ -17,6 +18,7 @@ struct MistakeInputView: View {
     @State private var isAnalyzing = false
     @State private var errorMessage: String?
     @State private var drafts: [DraftMistake] = []
+    @AppStorage("selectedAIProviderKey") private var selectedAIProviderKey = ""
 
     var body: some View {
         NavigationStack {
@@ -168,10 +170,19 @@ struct MistakeInputView: View {
 
         do {
             let grade = settings.first?.currentGrade ?? "未设置"
-            let results = try await GeminiService.shared.analyzeMistakes(
+            let provider = activeProvider
+            guard let provider else {
+                errorMessage = "请先在设置中配置 AI 提供商"
+                isAnalyzing = false
+                return
+            }
+            let results = try await AIService.shared.analyzeMistakes(
                 imageData: compressedImageData,
                 gradeLevel: grade,
-                textNote: note
+                textNote: note,
+                baseURL: provider.baseURL,
+                model: provider.model,
+                keychainKey: provider.keychainKey
             )
             drafts = results.map(DraftMistake.init(result:))
         } catch {
@@ -179,6 +190,12 @@ struct MistakeInputView: View {
         }
 
         isAnalyzing = false
+    }
+
+    private var activeProvider: CustomAIProvider? {
+        providers.first { $0.selectionKey == selectedAIProviderKey }
+            ?? providers.first(where: \.isDefault)
+            ?? providers.first
     }
 
     private func saveDrafts() {
@@ -229,7 +246,7 @@ private struct DraftMistake: Identifiable {
     var preventionRule: String
     var socraticQuestions: [String]
 
-    init(result: GeminiService.MistakeResult) {
+    init(result: AIService.MistakeResult) {
         self.content = result.content
         self.type = result.type
         self.textbookUnit = result.textbookUnit
