@@ -29,6 +29,10 @@
 		100000000000000000000016 /* MistakeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000016 /* MistakeInputView.swift */; };
 		100000000000000000000017 /* MistakeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000017 /* MistakeDetailView.swift */; };
 		100000000000000000000018 /* APIKeySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000018 /* APIKeySettingsView.swift */; };
+		100000000000000000000019 /* MarkdownWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000019 /* MarkdownWebView.swift */; };
+		100000000000000000000020 /* markdown-template.html in Resources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000020 /* markdown-template.html */; };
+		100000000000000000000021 /* ChatDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000021 /* ChatDetailView.swift */; };
+		100000000000000000000022 /* PromptLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000022 /* PromptLibraryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +60,10 @@
 		200000000000000000000016 /* MistakeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakeInputView.swift; sourceTree = "<group>"; };
 		200000000000000000000017 /* MistakeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakeDetailView.swift; sourceTree = "<group>"; };
 		200000000000000000000018 /* APIKeySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeySettingsView.swift; sourceTree = "<group>"; };
+		200000000000000000000019 /* MarkdownWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownWebView.swift; sourceTree = "<group>"; };
+		200000000000000000000020 /* markdown-template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "markdown-template.html"; sourceTree = "<group>"; };
+		200000000000000000000021 /* ChatDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailView.swift; sourceTree = "<group>"; };
+		200000000000000000000022 /* PromptLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptLibraryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +94,7 @@
 				40000000000000000000000A /* Services */,
 				400000000000000000000004 /* Utilities */,
 				400000000000000000000005 /* Views */,
+				40000000000000000000000C /* Resources */,
 				200000000000000000000010 /* Info.plist */,
 			);
 			path = MistakeMate;
@@ -150,6 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				20000000000000000000000E /* ChatListView.swift */,
+				200000000000000000000021 /* ChatDetailView.swift */,
+				200000000000000000000022 /* PromptLibraryView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -167,8 +178,17 @@
 			isa = PBXGroup;
 			children = (
 				200000000000000000000015 /* ImagePicker.swift */,
+				200000000000000000000019 /* MarkdownWebView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		40000000000000000000000C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				200000000000000000000020 /* markdown-template.html */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		400000000000000000000009 /* Products */ = {
@@ -237,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				100000000000000000000020 /* markdown-template.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,9 +289,12 @@
 				100000000000000000000015 /* ImagePicker.swift in Sources */,
 				100000000000000000000016 /* MistakeInputView.swift in Sources */,
 				100000000000000000000017 /* MistakeDetailView.swift in Sources */,
-				100000000000000000000018 /* APIKeySettingsView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
+			100000000000000000000018 /* APIKeySettingsView.swift in Sources */,
+			100000000000000000000019 /* MarkdownWebView.swift in Sources */,
+			100000000000000000000021 /* ChatDetailView.swift in Sources */,
+			100000000000000000000022 /* PromptLibraryView.swift in Sources */,
+		);
+		runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 

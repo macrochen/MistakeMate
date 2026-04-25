@@ -102,7 +102,7 @@ extension GeminiService {
 
     func chat(
         message: String,
-        history: [ChatMessage],
+        history: [ChatHistorySnapshot],
         imageData: Data? = nil,
         systemInstruction: String? = nil
     ) async throws -> String {
@@ -133,6 +133,21 @@ extension GeminiService {
             systemInstruction: systemInstruction,
             generationConfig: nil
         )
+    }
+}
+
+// MARK: - Sendable snapshot for chat history (Swift 6 concurrency safe)
+struct ChatHistorySnapshot: Sendable {
+    let role: String
+    let content: String
+    let imageData: Data?
+    let audioData: Data?
+
+    init(role: String, content: String, imageData: Data? = nil, audioData: Data? = nil) {
+        self.role = role
+        self.content = content
+        self.imageData = imageData
+        self.audioData = audioData
     }
 }
 
