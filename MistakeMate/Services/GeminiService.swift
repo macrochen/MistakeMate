@@ -4,7 +4,17 @@ struct GeminiService {
     static let shared = GeminiService()
 
     private let baseURL = "https://generativelanguage.googleapis.com/v1beta"
-    private let model = "gemini-2.0-flash"
+
+    static let availableModels = [
+        "gemini-2.0-flash",
+        "gemini-2.0-flash-lite",
+        "gemini-1.5-flash",
+        "gemini-1.5-pro",
+    ]
+
+    private var model: String {
+        UserDefaults.standard.string(forKey: "gemini_model") ?? "gemini-2.0-flash"
+    }
 
     private var apiKey: String? {
         try? KeychainService.shared.load(key: KeychainService.geminiKey)

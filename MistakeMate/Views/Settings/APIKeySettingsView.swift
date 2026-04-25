@@ -7,6 +7,7 @@ struct APIKeySettingsView: View {
     @State private var alertMessage: String?
     @State private var showAlert = false
     @FocusState private var isFieldFocused: Bool
+    @AppStorage("gemini_model") private var selectedModel = "gemini-2.0-flash"
 
     var body: some View {
         Form {
@@ -16,6 +17,19 @@ struct APIKeySettingsView: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
+            }
+
+            Section("模型") {
+                Picker("当前模型", selection: $selectedModel) {
+                    ForEach(GeminiService.availableModels, id: \.self) { model in
+                        Text(model).tag(model)
+                    }
+                }
+                .pickerStyle(.menu)
+
+                Text("不同模型的免费配额独立。遇到 429 配额耗尽时，可切换到其他模型。")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
 
             Section("密钥") {
