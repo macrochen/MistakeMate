@@ -20,8 +20,7 @@ struct SettingsView: View {
 
             Section("AI") {
                 NavigationLink("Gemini API Key") {
-                    Text("API Key 配置将在 Phase 2 实现")
-                        .foregroundStyle(.secondary)
+                    APIKeySettingsView()
                 }
             }
 
