@@ -33,6 +33,8 @@
 		100000000000000000000020 /* markdown-template.html in Resources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000020 /* markdown-template.html */; };
 		100000000000000000000021 /* ChatDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000021 /* ChatDetailView.swift */; };
 		100000000000000000000022 /* PromptLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000022 /* PromptLibraryView.swift */; };
+		100000000000000000000023 /* StudyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000023 /* StudyProfileView.swift */; };
+		100000000000000000000024 /* SubjectManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200000000000000000000024 /* SubjectManageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		200000000000000000000020 /* markdown-template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = "markdown-template.html"; sourceTree = "<group>"; };
 		200000000000000000000021 /* ChatDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDetailView.swift; sourceTree = "<group>"; };
 		200000000000000000000022 /* PromptLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptLibraryView.swift; sourceTree = "<group>"; };
+		200000000000000000000023 /* StudyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyProfileView.swift; sourceTree = "<group>"; };
+		200000000000000000000024 /* SubjectManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectManageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +174,8 @@
 			children = (
 				20000000000000000000000F /* SettingsView.swift */,
 				200000000000000000000018 /* APIKeySettingsView.swift */,
+				200000000000000000000023 /* StudyProfileView.swift */,
+				200000000000000000000024 /* SubjectManageView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -293,6 +299,8 @@
 			100000000000000000000019 /* MarkdownWebView.swift in Sources */,
 			100000000000000000000021 /* ChatDetailView.swift in Sources */,
 			100000000000000000000022 /* PromptLibraryView.swift in Sources */,
+			100000000000000000000023 /* StudyProfileView.swift in Sources */,
+			100000000000000000000024 /* SubjectManageView.swift in Sources */,
 		);
 		runOnlyForDeploymentPostprocessing = 0;
 		};
