@@ -20,14 +20,31 @@ struct APIKeySettingsView: View {
             }
 
             Section("模型") {
-                Picker("当前模型", selection: $selectedModel) {
-                    ForEach(GeminiService.availableModels, id: \.self) { model in
-                        Text(model).tag(model)
-                    }
-                }
-                .pickerStyle(.menu)
+                TextField("输入模型名称", text: $selectedModel)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
 
-                Text("不同模型的免费配额独立。遇到 429 配额耗尽时，可切换到其他模型。")
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 8) {
+                        ForEach(GeminiService.availableModels, id: \.self) { model in
+                            Button {
+                                selectedModel = model
+                            } label: {
+                                Text(model)
+                                    .font(.caption.weight(.medium))
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 6)
+                                    .background(selectedModel == model ? Color(hex: "#5A5A40") ?? .brown : Color(.systemGray6))
+                                    .foregroundStyle(selectedModel == model ? .white : .primary)
+                                    .clipShape(Capsule())
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                    .padding(.vertical, 4)
+                }
+
+                Text("点击预设快速切换，或直接输入任意模型名。不同模型配额独立。")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -120,6 +137,9 @@ struct APIKeySettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             hasSavedKey = (try? KeychainService.shared.load(key: KeychainService.geminiKey)) != nil
+            if selectedModel.isEmpty {
+                selectedModel = "gemini-2.0-flash"
+            }
         }
         .alert("Gemini API Key", isPresented: $showAlert) {
             Button("好", role: .cancel) { }

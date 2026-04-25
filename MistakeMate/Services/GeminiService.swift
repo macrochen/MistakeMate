@@ -6,6 +6,7 @@ struct GeminiService {
     private let baseURL = "https://generativelanguage.googleapis.com/v1beta"
 
     static let availableModels = [
+        "gemini-2.5-flash",
         "gemini-2.0-flash",
         "gemini-2.0-flash-lite",
         "gemini-1.5-flash",
